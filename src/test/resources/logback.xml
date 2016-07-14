@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration error="true" scan="true" scanPeriod="30 seconds">
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} %-5level user=[%X{loggedUser}] %c{3}.%method: %msg%n</Pattern>
+        </layout>
+    </appender>
+    <logger name="com.comcast.registration" level="DEBUG"/>
+    <logger name="com.comcast" level="INFO"/>
+
+    <logger name="org.springframework" level="WARN"/>
+
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>
+
+    <root level="WARN">
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>
