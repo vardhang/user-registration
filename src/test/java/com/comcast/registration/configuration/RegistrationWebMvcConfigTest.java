@@ -3,8 +3,6 @@ package com.comcast.registration.configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,73 +30,68 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.comcast.registration")
 @Import(JPATestConfiguration.class)
-public class RegistrationWebMvcConfigTest extends WebMvcConfigurerAdapter
-{
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
+public class RegistrationWebMvcConfigTest extends WebMvcConfigurerAdapter {
 
-		return viewResolver;
-	}
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry)
-	{
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
+        return viewResolver;
+    }
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
-	{
-		configurer.enable();
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
 
-	@Bean(name = "messageSource")
-	public MessageSource configureMessageSource()
-	{
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		return messageSource;
-	}
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 
-	@Bean
-	public SimpleMappingExceptionResolver simpleMappingExceptionResolver()
-	{
-		SimpleMappingExceptionResolver b = new SimpleMappingExceptionResolver();
-		Properties mappings = new Properties();
-		mappings.put("org.springframework.dao.DataAccessException", "error");
-		b.setExceptionMappings(mappings);
-		return b;
-	}
+    @Bean(name = "messageSource")
+    public MessageSource configureMessageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Bean
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver b = new SimpleMappingExceptionResolver();
+        Properties mappings = new Properties();
+        mappings.put("org.springframework.dao.DataAccessException", "error");
+        b.setExceptionMappings(mappings);
+        return b;
+    }
 
 
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		converters.add(mappingJackson2HttpMessageConverter());
-	}
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(mappingJackson2HttpMessageConverter());
+    }
 
-	@Bean
-	public ObjectMapper objectMapper() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
-		return mapper;
-	}
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
+        return mapper;
+    }
 
-	@Bean
-	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		/*ObjectMapper objectMapper = converter.getObjectMapper();
-		objectMapper.registerModule(new JodaModule());
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        /*ObjectMapper objectMapper = converter.getObjectMapper();
+        objectMapper.registerModule(new JodaModule());
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);*/
-		converter.setObjectMapper(objectMapper());
-		//converter.setObjectMapper(new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
-		return converter;
-	}
+        converter.setObjectMapper(objectMapper());
+        //converter.setObjectMapper(new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
+        return converter;
+    }
 
 }
 

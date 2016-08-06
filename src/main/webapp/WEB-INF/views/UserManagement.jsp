@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>  
-    <title>AngularJS $http Example</title>  
+    <title>User Registration</title>
     <style>
       .userName.ng-valid {
           background-color: lightgreen;
@@ -50,9 +50,9 @@
                       
                       <div class="row">
                           <div class="form-group col-md-12">
-                              <label class="col-md-2 control-lable" for="file">Address</label>
+                              <label class="col-md-2 control-lable" for="file">Registered Date</label>
                               <div class="col-md-7">
-                                  <input type="text" ng-model="ctrl.user.registeredDate" class="form-control input-sm" placeholder="Enter your Address. [This field is validation free]"/>
+                                  <input type="text" ng-model="ctrl.user.registeredDate" class="form-control input-sm" placeholder="Enter your Registered Date. [This field is validation free]"/>
                               </div>
                           </div>
                       </div>
@@ -87,7 +87,7 @@
                           <tr>
                               <th>ID.</th>
                               <th>Name</th>
-                              <th>Address</th>
+                              <th>Registered Date</th>
                               <th>Email</th>
                               <th width="20%"></th>
                           </tr>

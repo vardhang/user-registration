@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<USER id="1"	USER_NAME="VARDHAN"	REGISTERED_DATE="2016-04-16"		EMAIL="vardhang@gmail.com"		/>
-	<USER id="2"	USER_NAME="UDAY"	REGISTERED_DATE="2016-05-17"		EMAIL="udaykumar1113@gmail.com"		/>
+    <USER id="1" USER_NAME="VARDHAN" REGISTERED_DATE="2016-04-16" EMAIL="vardhang@gmail.com"/>
+    <USER id="2" USER_NAME="UDAY" REGISTERED_DATE="2016-05-17" EMAIL="udaykumar1113@gmail.com"/>
 </dataset>

@@ -1,7 +1,5 @@
 package com.comcast.registration.controller;
 
-import com.comcast.registration.configuration.JPATestConfiguration;
-import com.comcast.registration.configuration.RegistrationWebMvcConfig;
 import com.comcast.registration.configuration.RegistrationWebMvcConfigTest;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import org.junit.Before;
@@ -26,27 +24,22 @@ import javax.persistence.PersistenceContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RegistrationWebMvcConfigTest.class})
 @WebAppConfiguration
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
-		TransactionDbUnitTestExecutionListener.class })
-public abstract class AbstractWebApplicationContextTest extends MockMvcBuilders
-{
-	@Inject
-	private WebApplicationContext wac;
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionDbUnitTestExecutionListener.class})
+public abstract class AbstractWebApplicationContextTest extends MockMvcBuilders {
+    protected MockMvc mockMvc;
+    @Inject
+    private WebApplicationContext wac;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	protected MockMvc mockMvc;
+    @Before
+    public void setup() {
+        this.mockMvc = webAppContextSetup(this.wac).build();
+    }
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	@Before
-	public void setup()
-	{
-		this.mockMvc = webAppContextSetup(this.wac).build();
-	}
-
-	void flushDBCalls()
-	{
-		entityManager.flush();
-	}
+    void flushDBCalls() {
+        entityManager.flush();
+    }
 }

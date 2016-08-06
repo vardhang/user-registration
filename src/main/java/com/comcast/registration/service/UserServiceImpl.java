@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
 /**
@@ -14,39 +13,32 @@ import java.util.List;
  */
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl implements UserService {
 
-	@Inject
-	UserRepository userRepository;
+    @Inject
+    UserRepository userRepository;
 
-	public User findById(String id)
-	{
-		return userRepository.findById(id);
-	}
+    public User findById(String id) {
+        return userRepository.findById(id);
+    }
 
-	public void saveUser(User user)
-	{
-		userRepository.saveUser(user);
-	}
+    public void saveUser(User user) {
+        userRepository.saveUser(user);
+    }
 
-	public void updateUser(User user)
-	{
-		userRepository.updateUser(user);
-	}
+    public void updateUser(User user) {
+        userRepository.updateUser(user);
+    }
 
-	public void deleteUser(User user)
-	{
-		userRepository.deleteUser(user);
-	}
+    public void deleteUser(User user) {
+        userRepository.deleteUser(user);
+    }
 
-	public List<User> findAllUsers()
-	{
-		return userRepository.findAllUsers();
-	}
+    public List<User> findAllUsers() {
+        return userRepository.findAllUsers();
+    }
 
-	public boolean isUserExist(User user)
-	{
-		return userRepository.isUserExist(user);
-	}
+    public boolean isUserExist(User user) {
+        return userRepository.isUserExist(user);
+    }
 }

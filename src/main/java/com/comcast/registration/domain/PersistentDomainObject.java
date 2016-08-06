@@ -8,9 +8,8 @@ import java.io.Serializable;
  *
  * @author Vardhana Rao Gude on 7/13/2016.
  */
-public interface PersistentDomainObject<ID extends Serializable> extends Serializable
-{
-	public ID getId();
+public interface PersistentDomainObject<ID extends Serializable> extends Serializable {
+    ID getId();
 
-	public void setId(ID id);
+    void setId(ID id);
 }

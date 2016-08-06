@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
-import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 /*
  * This class is same as real HibernateConfiguration class in sources.
  * Only difference is that method dataSource & hibernateProperties 
@@ -26,53 +25,52 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.comcast.registration.dao" })
-public class JPATestConfiguration
-{
+@ComponentScan({"com.comcast.registration.dao"})
+public class JPATestConfiguration {
 
-	@Inject
-	private Environment environment;
+    @Inject
+    private Environment environment;
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setDataSource(dataSource());
-		entityManagerFactoryBean.setPackagesToScan(new String[]{"com.comcast.registration.domain"});
-		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-		entityManagerFactoryBean.setJpaProperties(hibernateProperties());
-		return entityManagerFactoryBean;
-	}
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan("com.comcast.registration.domain");
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+        entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+        return entityManagerFactoryBean;
+    }
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
-		dataSource.setUsername("dummy");
-		dataSource.setPassword("");
-		return dataSource;
-	}
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
+        dataSource.setUsername("dummy");
+        dataSource.setPassword("");
+        return dataSource;
+    }
 
-	private Properties hibernateProperties() {
-		Properties properties = new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-		properties.put("hibernate.hbm2ddl.auto", "create-drop");
-		properties.put("hibernate.show_sql", "true");
-		return properties;
-	}
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.show_sql", "true");
+        return properties;
+    }
 
 
-	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(emf);
-		return transactionManager;
-	}
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
 
-	@Bean
-	public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-		return new PersistenceExceptionTranslationPostProcessor();
-	}
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 
 }

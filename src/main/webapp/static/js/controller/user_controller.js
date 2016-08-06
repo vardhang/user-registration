@@ -2,7 +2,7 @@
 
 App.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
           var self = this;
-          self.user={id:null,username:'',registeredDate:'',email:''};
+          self.user={id:null,userName:'',registeredDate:'',email:''};
           self.users=[];
               
           self.fetchAllUsers = function(){
